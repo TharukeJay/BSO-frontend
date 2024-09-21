@@ -1,0 +1,13 @@
+---
+import CartItem from '../components/CartItem.astro';
+
+const response = await fetch('/api/cart');
+const cart = await response.json();
+---
+
+<section>
+    {cart.items.map(item => (
+            <CartItem product={item} />
+    ))}
+    <p>Total: {cart.total}</p>
+</section>

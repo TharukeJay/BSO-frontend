@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+
+const response = await fetch('/api/products');
+const products = await response.json();
+---
+
+<Layout title="Product Catalog">
+    <section class="product-catalog">
+        {products.map(product => (
+                <ProductCard product={product} />
+        ))}
+    </section>
+</Layout>

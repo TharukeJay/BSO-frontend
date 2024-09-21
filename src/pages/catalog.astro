@@ -1,0 +1,29 @@
+---
+const res = await fetch('http://localhost:1337/api/products');
+const data = await res.json();
+const products = data.data;
+---
+
+<html>
+<body>
+<h1>Product Catalog</h1>
+<ul>
+    {products.map((product) => (
+            <li key={product.id}>
+                <h2>{product.attributes.name}</h2>
+                <p>Price: {product.attributes.price}</p>
+                <button onclick={`addToCart(${product.id})`}>Add to Cart</button>
+            </li>
+    ))}
+</ul>
+
+<script>
+    function addToCart(productId) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(productId);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert('Added to cart!');
+    }
+</script>
+</body>
+</html>

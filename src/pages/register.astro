@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+const handleRegister = async (event) => {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    console.log("email", email, password);
+
+    const response = await fetch('/api/auth/local/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
+    });
+
+    if (response.ok) {
+        alert('Registration successful!');
+        // Handle successful registration (e.g., redirect to login)
+    } else {
+        alert('Registration failed. Please try again.');
+    }
+};
+---
+
+<Layout title="Register">
+    <form id="registerForm" onsubmit="handleRegister(event)">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit">Register</button>
+    </form>
+</Layout>
